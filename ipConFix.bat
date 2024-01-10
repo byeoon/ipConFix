@@ -38,7 +38,7 @@ If %input% == 1 goto FixConfig
 If %input% == 2 goto ClearCache
 If %input% == 3 goto DebugData
 If %input% == 4 goto EndingMessage
-If %input% == 4 goto Startup
+If %input% == 5 goto Startup
 
 @echo on
 
@@ -65,19 +65,46 @@ ipconfig /showclassid
 pause
 goto EndingMessage
 
+:EndingMessage
+echo Press any key to exit.
+pause
+
+
+:: !!!
+:: This section below is dedicated to the Startup modifier.
+:: !!!
+
+
 :Startup
-::Make ipConFix run on start, or any of the functions run on start.
+::Make ipConFix's functions run on boot. (C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup)
+echo 1. Renew IP
+echo 2. Flush DNS and ARP cache
+@echo,
+echo 3. Back
+echo,
 
+set startupinput=
+set /p startupinput= Please choose an option:
 
+If %startupinput% == 1 goto CreateRenewOnBoot
+If %startupinput% == 2 goto CreateFlushDNSOnBoot
+If %startupinput% == 3 goto EndingMessage
 
-
+:CreateRenewOnBoot
 echo" 
 ipconfig /release 
 ipconfig /release6
 ipconfig /renew
 ipconfig /renew6
 ">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\ipConFix_FixIP.bat
+echo Task completed.
+goto EndingMessage
 
-:EndingMessage
-echo Press any key to exit.
-pause
+
+:CreateFlushDNSOnBoot
+echo" 
+arp -a -d
+ipconfig /flushdns
+">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\ipConFix_FlushDNSARP.bat
+echo Task completed.
+goto EndingMessage
