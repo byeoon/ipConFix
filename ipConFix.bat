@@ -43,10 +43,8 @@ If %input% == 5 goto Startup
 @echo on
 
 :FixConfig
-:: Releases IP information, currently there is no IP connected to the user.
 ipconfig /release 
 ipconfig /release6
-:: Renews IP information, there is a new IP is being reassigned to the user.
 ipconfig /renew
 ipconfig /renew6
 goto EndingMessage
@@ -64,6 +62,7 @@ ipconfig /displaydns
 ipconfig /showclassid
 pause
 goto EndingMessage
+
 
 :EndingMessage
 echo Press any key to exit.
