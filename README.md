@@ -1,2 +1,2 @@
 # ipConFix
-Tools to make ipconfig easier and automated.
+Simplifies ipconfig into a single batch script.
